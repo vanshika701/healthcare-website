@@ -4,6 +4,11 @@
 node_modules/
 /.pnp
 .pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 # testing
 /coverage
@@ -49,6 +54,10 @@ next-env.d.ts
 Thumbs.db
 
 # Backend specific
-/backend/dist
-/backend/node_modules
-/backend/.env
+backend/dist/
+backend/node_modules/
+backend/.env
+backend/.env.local
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production.local
