@@ -15,8 +15,8 @@ const port = process.env.PORT || 5001;
 
 // CORS configuration
 app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
@@ -64,6 +64,11 @@ app.use('/api/organ-requests', organRequestRoutes);
 app.use('/api/organ-donors', organDonorRoutes);
 app.use('/api/contacts', contactRoutes);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
+
 // Basic route
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Healthcare API' });
@@ -74,12 +79,12 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   console.error(err.stack);
   res.status(500).json({
     success: false,
-    message: 'Something went wrong!',
+    message: 'Internal Server Error',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 });
 
 // Start server
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 }); 
